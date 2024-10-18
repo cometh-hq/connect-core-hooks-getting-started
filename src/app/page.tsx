@@ -25,16 +25,16 @@ export default function App() {
 
     const [transactionSuccess, setTransactionSuccess] = useState(false);
 
-    const localStorageAddress = window.localStorage.getItem(
-        "walletAddress"
-    ) as Hex;
-
     const connectWallet = async () => {
+        const localStorageAddress = window.localStorage.getItem(
+            "walletAddress"
+        ) as Hex;
+
         connectAsync({ address: localStorageAddress });
     };
 
     useEffect(() => {
-        if (!localStorageAddress && address) {
+        if (address) {
             window.localStorage.setItem("walletAddress", address);
         }
 

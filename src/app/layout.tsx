@@ -21,8 +21,6 @@ const paymasterUrl = process.env.NEXT_PUBLIC_4337_PAYMASTER_URL;
 
 const chainId = parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!);
 
-console.log({chainId})
-
 const chain = extractChain({
   chains: Object.values(chains),
   id: chainId,
@@ -39,6 +37,12 @@ const config = createConfig({
   ssr: true,
 });
 
+const networksConfig = [{
+  chain,
+  paymasterUrl,
+  bundlerUrl
+}]
+
 export default function RootLayout({
   children,
 }: {
@@ -50,10 +54,8 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <ConnectProvider
             config={{
-              paymasterUrl,
-              bundlerUrl,
-              apiKey,
-              chain: chain,
+              networksConfig,
+              apiKey
             }}
             queryClient={queryClient}
           >
